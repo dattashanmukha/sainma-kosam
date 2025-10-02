@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Get in Touch | Sainma Kosam</title>
+  <style>
+    /* Global Styles */
+    .font-heading { font-family: 'Oswald', sans-serif; }
+    body { background-color: #0A0A0A; font-family: 'Inter', sans-serif; }
+    
+    /* Primary accent color: A subtle, clean gray/silver */
+    .color-accent { color: #A0A0A0; } 
+    /* High contrast text */
+    .text-high-contrast { color: #FFFFFF; }
+
+    /* Form and Content Block Styling */
+    .contact-block {
+        border-radius: 8px;
+        background-color: #111111; /* Slightly lighter than body for depth */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); /* Deep, noticeable shadow */
+        border: 1px solid #222222; 
+    }
+
+    /* Input/Textarea Styling - Crucial for slickness! */
+    .contact-input {
+        background-color: #0A0A0A; /* Darker than the block for contrast */
+        border: 1px solid #333333;
+        color: #FFFFFF;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .contact-input:focus {
+        border-color: #FFFFFF; /* White border on focus */
+        box-shadow: 0 0 0 1px #FFFFFF; /* Subtle white glow */
+        outline: none;
+    }
+
+    /* Hover effect for the Logo */
+    .logo-hover:hover {
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col">
+  
+  <header class="bg-black shadow-2xl sticky top-0 z-50 border-b border-gray-900">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/dashboard">
+        <h1 class="text-3xl font-heading font-bold text-white tracking-widest logo-hover transition duration-200">
+            🎬 SAINMA KOSAM
+        </h1>
+      </a>
+      <nav class="flex space-x-8 text-lg items-center"> 
+        <a href="/why" class="text-white font-medium hover:text-gray-400 transition tracking-wide py-1">Why this blog?</a>
+        
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 py-16">
+    <div class="max-w-4xl w-full">
+      
+      <header class="text-center mb-12">
+        <h2 class="text-5xl md:text-6xl font-heading font-extrabold text-white mb-4 tracking-tighter">
+          DROP US A LINE.
+        </h2>
+        <p class="text-xl color-accent">
+          Got a movie we <strong>need</strong> to review? A hot take we're dead wrong about? Let the chaos begin.
+        </p>
+      </header>
+
+      <div class="contact-block p-8 md:p-12 grid md:grid-cols-2 gap-12">
+        
+        <div class="md:border-r md:border-gray-800 md:pr-10">
+            <h3 class="text-2xl font-semibold text-white mb-6 border-b border-gray-700 pb-2">Send an encrypted message.</h3>
+            
+            <form action="#" method="POST" class="space-y-6">
+                
+                <div>
+                    <label for="name" class="block text-sm font-medium text-white mb-2">What is your name?</label>
+                    <input type="text" id="name" name="name" required
+                           class="contact-input w-full p-3 rounded text-sm placeholder-gray-600" 
+                           placeholder="Tell us">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-white mb-2">Email</label>
+                    <input type="email" id="email" name="email" required
+                           class="contact-input w-full p-3 rounded text-sm placeholder-gray-600"
+                           placeholder="email@gmail.com">
+                </div>
+
+                <div>
+                    <label for="message" class="block text-sm font-medium text-white mb-2">Your Rant here</label>
+                    <textarea id="message" name="message" rows="5" required
+                              class="contact-input w-full p-3 rounded text-sm placeholder-gray-600"
+                              placeholder="Why did they ruin the ending?!"></textarea>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full mt-4 px-6 py-3 text-lg font-bold bg-white text-black rounded hover:bg-gray-200 transition shadow-lg transform hover:scale-[1.01]">
+                    SHOOT
+                </button>
+            </form>
+        </div>
+
+        <div class="md:pl-6 pt-4 md:pt-0">
+            <h3 class="text-2xl font-semibold text-white mb-6 border-b border-gray-700 pb-2">Where to find the chaos.</h3>
+
+            <div class="space-y-8">
+                <div>
+                    <p class="text-sm font-medium color-accent uppercase tracking-wider mb-1">Direct Line</p>
+                    <a href="mailto:contact@sainmakosam.com" class="text-xl text-white font-semibold hover:color-accent transition">
+                        contact@sainmakosam.com
+                    </a>
+                </div>
+
+                <div>
+                    <p class="text-sm font-medium color-accent uppercase tracking-wider mb-1">Social Feed</p>
+                    <a href="#" class="text-xl text-white font-semibold hover:color-accent transition">
+                        @SainmaKosamReviews
+                    </a>
+                </div>
+
+                <div>
+                    <p class="text-sm font-medium color-accent uppercase tracking-wider mb-1">Review Policy</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        We do not accept paid reviews, but we are always open to suggestions. If you're a filmmaker, let us know!
+                    </p>
+                </div>
+
+            </div>
+        </div>
+      </div>
+      </div>
+  </main>
+
+  <footer class="bg-black text-center py-8 text-gray-600 text-xs border-t border-gray-900">
+    Made with too much coffee ☕ & too little sleep 💤 | © 2025 <span class="text-white font-semibold">Sainma Kosam</span>
+  </footer>
+
+</body>
+</html>

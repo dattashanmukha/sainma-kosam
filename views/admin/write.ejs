@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title><%= review ? 'Edit' : 'New' %> Review | Sainma Kosam</title>
+  <style>
+    .font-heading { font-family: 'Oswald', sans-serif; }
+    body { background-color: #0A0A0A; font-family: 'Inter', sans-serif; }
+    .form-block {
+        border-radius: 8px;
+        background-color: #111111; 
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        border: 1px solid #222222; 
+    }
+    .form-input {
+        background-color: #0A0A0A;
+        border: 1px solid #333333;
+        color: #FFFFFF;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-input:focus {
+        border-color: #FFFFFF; 
+        box-shadow: 0 0 0 1px #FFFFFF; 
+        outline: none;
+    }
+    .file-input-wrapper {
+        display: flex; align-items: center; padding: 12px; border-radius: 4px;
+        background-color: #0A0A0A;
+        border: 1px solid #333333;
+    }
+    .file-input-wrapper:focus-within {
+        border-color: #FFFFFF; 
+        box-shadow: 0 0 0 1px #FFFFFF; 
+    }
+    .file-input-wrapper input[type="file"] {
+        width: 100%; color: #9CA3AF;
+        padding: 0;
+    }
+    .btn-submit { background-color: #FFFFFF; color: #0A0A0A; }
+    .error-box { color: #E57373; background-color: #330000; border: 1px solid #E57373; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col text-white">
+  
+    <header class="bg-black shadow-2xl border-b border-gray-900 px-6 py-4">
+        <div class="flex justify-between items-center container mx-auto">
+            <h1 class="text-3xl font-heading font-bold tracking-widest">
+                ADMIN CONSOLE
+            </h1>
+            <nav class="flex space-x-4 items-center">
+                <a href="/admin/dashboard" class="text-white hover:text-gray-400 transition text-sm py-1 border-b border-transparent hover:border-white">
+                    ← Dashboard
+                </a>
+                <a href="/auth/logout" class="text-gray-400 hover:text-red-500 transition text-sm py-1 border-b border-transparent hover:border-red-500">
+                    LOGOUT
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 py-12">
+        <h2 class="text-4xl font-heading font-extrabold mb-8">
+            <%= review ? 'EDIT TRANSMISSION' : 'CREATE NEW TRANSMISSION' %>
+        </h2>
+        
+        <% if (error) { %>
+            <div class="error-box p-4 rounded-lg mb-6 text-sm text-center">
+                <p class="font-bold">Error:</p>
+                <p><%= error %></p>
+            </div>
+        <% } %>
+
+        <div class="form-block p-8 max-w-4xl mx-auto">
+            
+            <% 
+                // Determine the route: POST for new, PUT for edit
+                const formAction = review ? `/admin/reviews/${review._id}?_method=PUT` : '/admin/reviews';
+                const isEditing = !!review;
+            %>
+            
+            <form action="<%= formAction %>" method="POST" enctype="multipart/form-data" class="space-y-6">
+                
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-400 mb-2">Movie / Series Title</label>
+                    <input type="text" id="title" name="title" required
+                           class="form-input w-full p-3 rounded text-sm placeholder-gray-600" 
+                           placeholder="Movie title" value="<%= review ? review.title : '' %>">
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label for="author" class="block text-sm font-medium text-gray-400 mb-2">Author</label>
+                        <select id="author" name="author" required
+                                class="form-input w-full p-3 rounded text-sm text-white">
+                            <option value="" disabled <%= !review || !review.author ? 'selected' : '' %>>Select Author</option>
+                            <option value="Datta" <%= review && review.author === 'Datta' ? 'selected' : '' %>>Shanmukha Datta</option>
+                            <option value="Pranav" <%= review && review.author === 'Pranav' ? 'selected' : '' %>>Pranav</option>
+                            <option value="Guest" <%= review && review.author === 'Guest' ? 'selected' : '' %>>Guest</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="image" class="block text-sm font-medium text-gray-400 mb-2">Poster Image Upload (<%= isEditing ? 'Change Image' : 'Required' %>)</label>
+                        
+                        <% if (review && review.image) { %>
+                            <p class="text-xs text-gray-500 mb-2">Current Image: <a href="<%= review.image %>" target="_blank" class="underline hover:text-white"><%= review.image %></a></p>
+                        <% } %>
+                        
+                        <div class="file-input-wrapper">
+                            <input type="file" id="image" name="image" <%= isEditing ? '' : 'required' %>
+                                   accept="image/*"> 
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="excerpt" class="block text-sm font-medium text-gray-400 mb-2">Excerpt (Short Summary for Homepage)</label>
+                    <textarea id="excerpt" name="excerpt" rows="2" required
+                              class="form-input w-full p-3 rounded text-sm placeholder-gray-600"
+                              placeholder="A brief, chaotic summary of the review (max 250 characters)."><%= review ? review.excerpt : '' %></textarea>
+                </div>
+
+                <div>
+                    <label for="content" class="block text-sm font-medium text-gray-400 mb-2">Full Review Content</label>
+                    <textarea id="content" name="content" rows="10" required
+                              class="form-input w-full p-3 rounded text-sm placeholder-gray-600"
+                              placeholder="Unleash the full, unfiltered chaos of your review here..."><%= review ? review.content : '' %></textarea>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full mt-6 px-6 py-3 text-lg font-bold btn-submit rounded hover:bg-gray-300 transition shadow-lg transform hover:scale-[1.01]">
+                    // <%= review ? 'SAVE UPDATES' : 'TRANSMIT CHAOS' %>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-black text-center py-4 text-gray-600 text-xs border-t border-gray-900">
+        <p>SECURE CONSOLE. ACCESS LEVEL: ADMIN</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Admin Access</title>
+  <style>
+    .font-heading { font-family: 'Oswald', sans-serif; }
+    body { background-color: #0A0A0A; font-family: 'Inter', sans-serif; }
+    .text-high-contrast { color: #FFFFFF; }
+    .login-card {
+        border-radius: 6px;
+        background-color: #111111;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        border: 1px solid #222222;
+    }
+    .login-input {
+        background-color: #0A0A0A;
+        border: 1px solid #333333;
+        color: #FFFFFF;
+        transition: border-color 0.3s;
+    }
+    .login-input:focus {
+        border-color: #FFFFFF;
+        box-shadow: 0 0 0 1px #FFFFFF;
+        outline: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center">
+
+    <!-- Header (Simple Link Back Home) -->
+    <header class="absolute top-0 left-0 p-6">
+        <a href="/" class="text-gray-400 hover:text-white transition text-sm">
+            <span class="font-heading font-semibold text-lg">←</span> PUBLIC SITE
+        </a>
+    </header>
+
+    <!-- Login Card -->
+    <div class="max-w-md w-full login-card p-8 md:p-10">
+        <h2 class="text-3xl font-heading font-bold text-white mb-6 text-center">
+            ADMIN ACCESS // LOGIN REQUIRED
+        </h2>
+        
+        <!-- Error Message Display -->
+        <% if (error) { %>
+            <div class="bg-red-900/50 border border-red-500 text-white p-3 rounded mb-4 text-sm text-center">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <form action="/auth/login" method="POST" class="space-y-6">
+            
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-400 mb-2">Username</label>
+                <input type="text" id="username" name="username" required
+                       class="login-input w-full p-3 rounded text-sm placeholder-gray-600" 
+                       placeholder="username" autocomplete="username">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-400 mb-2">Password</label>
+                <input type="password" id="password" name="password" required
+                       class="login-input w-full p-3 rounded text-sm placeholder-gray-600"
+                       placeholder="********" autocomplete="current-password">
+            </div>
+            
+            <!-- Submit Button: High contrast white -->
+            <button type="submit" 
+                    class="w-full mt-4 px-6 py-3 text-lg font-bold bg-white text-black rounded hover:bg-gray-300 transition shadow-lg transform hover:scale-[1.01]">
+                // DECRYPT & ACCESS
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer (Minimal) -->
+    <footer class="mt-8 text-gray-600 text-xs">
+        <p>FOR AUTHORIZED PERSONNEL ONLY</p>
+    </footer>
+
+</body>
+</html>

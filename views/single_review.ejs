@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title><%= review.title %> | Sainma Kosam</title>
+    <style>
+        .font-heading { font-family: 'Oswald', sans-serif; }
+        body { background-color: #0A0A0A; font-family: 'Inter', sans-serif; }
+        .content-block { background-color: #111111; border: 1px solid #222; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-white">
+    
+    <!-- Header -->
+    <header class="bg-black shadow-2xl sticky top-0 z-50 border-b border-gray-900">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/dashboard">
+                <h1 class="text-3xl font-heading font-bold tracking-widest">
+                    🎬 SAINMA KOSAM
+                </h1>
+            </a>
+            <a href="/" class="px-3 py-1 bg-transparent text-white border-2 border-white rounded-full font-semibold hover:bg-white hover:text-black transition shadow-md">
+                ← Back to Chaos
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 py-12">
+        <article class="max-w-4xl mx-auto">
+            
+            <!-- Metadata & Title -->
+            <header class="mb-8 border-b border-gray-800 pb-4">
+                <p class="text-sm text-gray-500 uppercase tracking-wider mb-2">
+                    TRANSMISSION BY <%= review.author %> | <%= new Date(review.datePosted).toLocaleDateString() %>
+                </p>
+                <h1 class="text-5xl md:text-6xl font-heading font-extrabold text-white leading-tight">
+                    <%= review.title %>
+                </h1>
+                <p class="text-xl text-gray-400 italic mt-3">
+                    <%= review.excerpt %>
+                </p>
+            </header>
+
+            <!-- Featured Image -->
+            <% if (review.image) { %>
+                <img src="<%= review.image %>" alt="<%= review.title %> Poster" 
+                     class="w-full h-auto max-h-96 object-cover object-center rounded-lg shadow-xl mb-8 border border-gray-800">
+            <% } %>
+
+            <!-- Content -->
+            <div class="content-block p-8 rounded-lg shadow-xl">
+                <p class="text-gray-300 text-lg leading-relaxed whitespace-pre-wrap">
+                    <%= review.content %>
+                </p>
+            </div>
+            
+            <a href="/dashboard" class="inline-block mt-10 text-gray-400 hover:text-white transition">
+                ← Back to All Transmissions
+            </a>
+
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-4 text-gray-600 text-xs border-t border-gray-900">
+        <p>Sainma Kosam | End of Transmission</p>
+    </footer>
+
+</body>
+</html>

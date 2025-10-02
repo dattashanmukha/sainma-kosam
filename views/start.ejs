@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>🎬 Sainma Kosam</title>
+    <style>
+        .font-heading { font-family: 'Oswald', sans-serif; }
+        body { 
+            background-color: #0A0A0A; 
+            font-family: 'Inter', sans-serif; 
+            overflow: hidden; /* Hide scrollbar during dramatic intro */
+        }
+
+        /* Dramatic Intro Animation */
+        .dramatic-enter {
+            animation: fadeIn 2.5s ease-out 0.5s forwards;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            80% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Subtle Glow on Hover */
+        .title-glow:hover {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            transition: text-shadow 0.3s;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center text-white">
+
+    <div class="text-center p-8">
+        
+        <a href="/dashboard" class="dramatic-enter block title-glow">
+            <!-- Main Title -->
+            <h1 class="text-8xl md:text-9xl font-heading font-extrabold tracking-widest leading-none mb-4">
+                🎬 SAINMA KOSAM
+            </h1>
+            
+            <!-- Tagline -->
+            <p class="text-xl md:text-3xl text-gray-400 font-light tracking-widest uppercase mt-4">
+                Movie reviews by two bored engineers.
+            </p>
+        </a>
+
+        <p class="text-xs text-gray-700 mt-16 animate-pulse opacity-0 dramatic-enter" style="animation-delay: 3s;">
+            Click anywhere to continue the chaos...
+        </p>
+    </div>
+
+    <script>
+        // Simple JavaScript to make the click trigger the navigation
+        document.addEventListener('click', () => {
+            window.location.href = '/dashboard';
+        });
+
+        // Prevent the click on the title from double-triggering the redirect
+        document.querySelector('.dramatic-enter').addEventListener('click', (e) => {
+             e.stopPropagation();
+        });
+    </script>
+
+</body>
+</html>
+

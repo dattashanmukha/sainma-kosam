@@ -1,0 +1,162 @@
+<%
+// Helper function to format the date string cleanly
+const formatDate = (dateString) => { 
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+};
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sainma Kosam | Unfiltered Movie Reviews</title>
+    <style>
+        /* Setting Oswald for titles and Inter for everything else */
+        .font-heading { font-family: 'Oswald', sans-serif; }
+        /* Deepest black background for the body */
+        body { background-color: #0A0A0A; font-family: 'Inter', sans-serif; }
+        
+        /* Primary accent color: A subtle, clean gray/silver */
+        .color-accent { color: #A0A0A0; } 
+        /* High contrast text */
+        .text-high-contrast { color: #FFFFFF; }
+        
+        /* Custom Gradient for the Hero Section: Now a subtle, dark transition */
+        .hero-gradient { 
+            background-image: linear-gradient(to right, #111111, #181818); 
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid #222;
+        }
+        
+        /* Add a subtle texture/noise overlay for cinematic grit */
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpiYGBgaGCQZIAAmAQQYAABJwAzs86U+wAAAABR0lEQVR42mJgYGDgAAEGAAHnARlV4k3PAAAAAElFTkSuQmCC');
+            opacity: 0.15; /* A bit more visible for texture */
+            pointer-events: none;
+        }
+
+        /* Card Styles */
+        .review-card {
+            background-color: #1A1A1A;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid #222222;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border-color: #4A90E2; /* Subtle blue highlight on hover */
+        }
+        .btn-read { background-color: #4A90E2; }
+
+        /* Style for the logo link on hover - White glow */
+        .logo-hover:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col">
+    
+    <!-- Header -->
+    <header class="bg-black shadow-2xl sticky top-0 z-50 border-b border-gray-900">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/dashboard">
+                <h1 class="text-3xl font-heading font-bold text-white tracking-widest logo-hover py-1 transition duration-200">
+                    🎬 SAINMA KOSAM
+                </h1>
+            </a>
+            
+            <nav class="flex space-x-8 text-lg items-center"> 
+                <a href="/why" class="text-white font-medium hover:text-gray-400 transition tracking-wide py-1">Why this blog?</a>
+                <a href="/contact" class="px-3 py-1 bg-transparent text-white border-2 border-white rounded-full font-semibold hover:bg-white hover:text-black transition shadow-md transform hover:scale-105">
+                    Let's get in touch!
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-24 text-center shadow-inner-xl border-b border-[#222]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-5xl md:text-7xl font-heading font-extrabold mb-4 uppercase drop-shadow-lg tracking-tighter">
+                UNFILTERED REVIEWS FROM BORED ENGINEERS.
+            </h2>
+            <p class="text-lg md:text-2xl color-accent font-light mt-6">
+                Movie & series reviews with a dash of chaos 🍿💥
+            </p>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <main class="container mx-auto px-6 py-16 flex-grow">
+        <h3 class="text-3xl font-heading font-bold mb-10 text-white border-b border-gray-700 pb-4 tracking-wider">LATEST TRANSMISSIONS</h3>
+        
+        <!-- Blog Cards Grid -->
+        <div id="blog-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <% if (reviews && reviews.length === 0) { %>
+                <p class="text-gray-500 text-xl lg:col-span-3 text-center">
+                    The engineers are still loading the first transmission... check back soon!
+                </p>
+            <% } %>
+
+            <% if (reviews) { %>
+                <% reviews.forEach(review => { %>
+                    <article class="review-card rounded-lg overflow-hidden">
+                        <!-- Image Display -->
+                        <% if (review.image) { %>
+                            <img src="<%= review.image %>" alt="<%= review.title %> Poster" class="w-full h-56 object-cover object-center border-b border-gray-800">
+                        <% } else { %>
+                            <div class="w-full h-56 bg-gray-900 flex items-center justify-center text-gray-600 border-b border-gray-800">
+                                [Image Unavailable]
+                            </div>
+                        <% } %>
+
+                        <div class="p-6">
+                            <!-- Title -->
+                            <h4 class="text-2xl font-heading font-semibold text-white mb-3 leading-snug">
+                                <%= review.title %>
+                            </h4>
+                            <!-- Excerpt -->
+                            <p class="text-gray-400 mb-5 text-base">
+                                <%= review.excerpt %>
+                            </p>
+                            <!-- Meta Info -->
+                            <p class="text-xs text-gray-500 mb-4 tracking-wider uppercase">
+                                By <span class="text-gray-200"><%= review.author %></span> · <%= formatDate(review.datePosted) %>
+                            </p>
+                            
+                            <!-- Read More Button (Using the slug from the DB) -->
+                            <a href="/reviews/<%= review.slug %>" 
+                               class="inline-block mt-2 px-5 py-2 text-sm font-bold btn-read text-white rounded-full hover:opacity-90 transition shadow-md">
+                                Read the Chaos →
+                            </a>
+                        </div>
+                    </article>
+                <% }) %>
+            <% } %>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-8 text-gray-500 text-sm border-t border-gray-800">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500 text-sm border-t border-gray-900">
+            Made with too much coffee ☕ & too little sleep 💤 | © 2025 <span class="text-white font-semibold">Sainma Kosam</span>
+        </div>
+    </footer>
+
+</body>
+</html>
