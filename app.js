@@ -14,7 +14,7 @@ const app = express();
 const Review = require('./models/Review'); // REQUIRED for the homepage fetch
 
 // --- MongoDB Connection ---
-const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/sainmakosam'; 
+const dbUrl = process.env.MONGO_URI || 'mongodb+srv://sainmakosam:sainmakosamDATABASE@reviews.b2gaqa3.mongodb.net/?retryWrites=true&w=majority&appName=reviews'; 
 
 mongoose.connect(dbUrl)
     .then(() => {
