@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('./models/User'); // Path to your User model
 // FIX: Changed database name from sainmakosam_db to sainmakosam
-const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/sainmakosam'; 
+const dbUrl = process.env.MONGO_URI || 'mongodb+srv://sainmakosam:sainmakosamDATABASE@reviews.b2gaqa3.mongodb.net/?retryWrites=true&w=majority&appName=reviews'; 
 
 mongoose.connect(dbUrl)
     .then(() => {
